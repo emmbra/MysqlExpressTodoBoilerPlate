@@ -60,11 +60,13 @@ module.exports = {
     const { id } = req.params;
     const { task } = req.body;
     try {
-      const [todos] = await connection.query(todoQueries.getTodoById, id);
+      console.log("i'm hit");
+      const [todos] = await connection.query(todoQueries.findTodoById, id);
+      console.log(todos);
       const foundTodo = todos[0];
       // eslint-disable-next-line max-len
       await connection.query(todoQueries.updateTodoTextAndCompletedById, [task, !foundTodo.completed, id]);
-      const [todosUpdated] = await connection.query(todoQueries.getTodoById, id);
+      const [todosUpdated] = await connection.query(todoQueries.findTodoById, id);
       res.json(todosUpdated[0]);
     } catch (e) {
       res.status(403).json({ e });

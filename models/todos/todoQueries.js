@@ -10,10 +10,10 @@ const addTodo = 'INSERT INTO todos SET ?;';
 // delete todos
 const deleteTodoById = 'DELETE FROM todos WHERE id = ?;';
 
-// updating todos
+// updating todos task field
 const updateTodoTextById = 'UPDATE todos SET task = ? WHERE id = ?;';
 
-// updating multiple fields in todos
+// updating todos task and completed
 const updateTodoTextAndCompletedById = 'UPDATE todos SET task = ?, completed = ? WHERE id = ?;';
 //
 module.exports = {
