@@ -9,6 +9,10 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
 // any route that goes to slash (/)
 // have the router object inside of routes
 // handle the routing for us
