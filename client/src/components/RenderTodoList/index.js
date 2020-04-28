@@ -6,7 +6,8 @@ const RenderTodoList = props => {
       return <h1>No todos yet!</h1>;
     } else {
       return props.items.map(todo => {
-        return <li key = {todo.id}>{todo.task}</li>
+        return <li key = {todo.id}
+        style={{ color: todo.completed ? 'blue' : 'red'}}>{todo.task}</li>
       });
     }
   }
