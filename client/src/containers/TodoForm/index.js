@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import RenderTodoList from '../../components/RenderTodoList';
 
 class TodoForm extends Component {
   state = {
@@ -31,27 +32,6 @@ class TodoForm extends Component {
     }
   };
 
-  renderTodos = () => {
-    if (this.state.todos.length === 0) {
-      return <h1>No todos yet!</h1>;
-    } else {
-      return (
-        <ul>
-          {this.state.todos.map((todo) => {
-            return (
-              <li
-                key={todo.id}
-                style={{ color: todo.completed ? 'blue' : 'red' }}
-              >
-                {todo.task}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    }
-  };
-
   async componentDidMount() {
     // console.log("I'm inside componendDidMount");
     try {
@@ -65,7 +45,7 @@ class TodoForm extends Component {
   render() {
     return (
       <div>
-        {this.renderTodos()}
+        <RenderTodoList items={this.state.todos} />
         <form>
         <input
           name="todoInput"
