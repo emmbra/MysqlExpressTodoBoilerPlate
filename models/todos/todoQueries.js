@@ -11,6 +11,7 @@ const addTodo = 'INSERT INTO todos SET ?;';
 const deleteTodoById = 'DELETE FROM todos WHERE id = ?;';
 
 // updating todos task field
+const updateTodoCompletedById = 'UPDATE todos SET completed = ? WHERE id = ?;';
 const updateTodoTextById = 'UPDATE todos SET task = ? WHERE id = ?;';
 
 // updating todos task and completed
@@ -24,5 +25,6 @@ module.exports = {
   addTodo,
   deleteTodoById,
   updateTodoTextById,
+  updateTodoCompletedById,
   updateTodoTextAndCompletedById,
 };

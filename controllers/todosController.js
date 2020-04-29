@@ -56,13 +56,29 @@ module.exports = {
       res.status(403).json({ e });
     }
   },
+  updateTodoCompletedById: async (req, res) => {
+    const { id } = req.params;
+    // you will pull out the text from req.body
+    // query your database to update that specific todo by it's id
+    // You will update the text of that todo into what the user is updating it to
+    try {
+      const [todo] = await connection.query(todoQueries.findTodoById, id);
+      const foundTodo = todo[0];
+      await connection.query(todoQueries.updateTodoCompletedById, [!foundTodo.completed, id]);
+      // after you update the data, send back that newly updated data as response
+      // response returns  [data, fields]
+      // [todos] destructures data from response
+      const [todos] = await connection.query(todoQueries.findAllTodos);
+      res.json(todos);
+    } catch (e) {
+      res.status(403).json({ e });
+    }
+  },
   updateTodoTextAndCompletedById: async (req, res) => {
     const { id } = req.params;
     const { task } = req.body;
     try {
-      console.log("i'm hit");
       const [todos] = await connection.query(todoQueries.findTodoById, id);
-      console.log(todos);
       const foundTodo = todos[0];
       // eslint-disable-next-line max-len
       await connection.query(todoQueries.updateTodoTextAndCompletedById, [task, !foundTodo.completed, id]);

@@ -5,8 +5,8 @@ import RenderTodoList from '../../components/RenderTodoList';
 class TodoForm extends Component {
   state = {
     todos: [],
-    todoInput: "",
-    todoInputTwo: "",
+    todoInput: '',
+    todoInputTwo: '',
   };
 
   handleInputChange = (event) => {
@@ -18,7 +18,7 @@ class TodoForm extends Component {
     // this.setState({ todoInput: event.target.value });
   };
 
-  handleSubmit = async (event) => {
+  handleSubmit = async event => {
     event.preventDefault();
     try {
       const { data } = await Axios.post('/api/todos', {
@@ -31,6 +31,24 @@ class TodoForm extends Component {
       console.log(error);
     }
   };
+
+  handleDeleteTodo = async id => {
+    try {
+      const { data } = await Axios.delete(`/api/todos/${id}`);
+      this.setState({ todos: data });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  handleUpdateCompletedTodo = async id => {
+    try {
+      const { data } = await Axios.patch(`/api/todos/${id}`);
+      this.setState({ todos: data })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async componentDidMount() {
     // console.log("I'm inside componendDidMount");
@@ -45,7 +63,11 @@ class TodoForm extends Component {
   render() {
     return (
       <div>
-        <RenderTodoList items={this.state.todos} />
+        <RenderTodoList 
+        items={this.state.todos} 
+        handleDelete={this.handleDeleteTodo}
+        handleUpdateCompletedTodo={this.handleUpdateCompletedTodo}
+        />
         <form>
         <input
           name="todoInput"
